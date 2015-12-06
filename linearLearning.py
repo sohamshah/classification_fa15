@@ -52,7 +52,7 @@ def der_quadLoss_dx(x, y):
     with quadratic loss functions)
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    return 2*(x-y)
 
 def der_dot_dw(x, weights):
     """
@@ -65,7 +65,7 @@ def der_dot_dw(x, weights):
     Hint: You may not need all of the input arguments.
     """
     "*** YOUR CODE HERE ***"
-    print x
+    return x
 
 def stochasticGradientDescentUpdate(datum, label, weights, alpha, der_loss_dw):
     """
@@ -88,7 +88,8 @@ def stochasticGradientDescentUpdate(datum, label, weights, alpha, der_loss_dw):
     [der_loss_dw1, der_loss_dw2, ...]
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    loss = der_loss_dw(datum, label, weights)
+    updatedWeights = weights - (alpha * loss)
 
     return updatedWeights
 
@@ -329,7 +330,8 @@ class LinearRegression:
         [der_loss_dw1, der_loss_dw2, ...]
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        dw = der_dot_dw(x, weights)
+        return der_quadLoss_dx(self.hypothesis(x), y_true) * dw
 
 class BinaryLinearClassifier:
     """

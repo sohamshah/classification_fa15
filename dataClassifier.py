@@ -75,17 +75,8 @@ def enhancedFeatureExtractorDigit(datum):
     for this datum (datum is of type samples.Datum).
 
     ## DESCRIBE YOUR ENHANCED FEATURES HERE...
-
     ##
     """
-    features =  basicFeatureExtractorDigit(datum)
-
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
-    return features
-
-
 
 def basicFeatureExtractorPacman(state):
     """
