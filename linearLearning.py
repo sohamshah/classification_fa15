@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -30,24 +30,25 @@ PRINT = False
 def quadLoss(x, y):
     """
     Question 1
-    
+
     Quadtratic loss function. Takes a scalar input x and a scalar label y
     and returns the square of the difference between them.
 
-    Note: Do NOT add a factor of 1/2 in front of this loss (as often seen 
-    with quadratic loss functions)    
+    Note: Do NOT add a factor of 1/2 in front of this loss (as often seen
+    with quadratic loss functions)
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    return abs(x-y) ** 2
+
 
 def der_quadLoss_dx(x, y):
     """
     Question 2
-    
+
     Derivative of the quadtratic loss function (quadLoss) with respect to the scalar input x,
     given the scalar label y.
 
-    Note: The quad loss function does NOT add a factor of 1/2 in front of that loss (as often seen 
+    Note: The quad loss function does NOT add a factor of 1/2 in front of that loss (as often seen
     with quadratic loss functions)
     """
     "*** YOUR CODE HERE ***"
@@ -56,11 +57,11 @@ def der_quadLoss_dx(x, y):
 def der_dot_dw(x, weights):
     """
     Question 2
-    
+
     The derivative of the dot product of arrays x and weights with respect to the
     weights. Returns an array of the derivative with respect to each weights term
     [der_dot_dw1, der_dot_dw2, ...]
-    
+
     Hint: You may not need all of the input arguments.
     """
     "*** YOUR CODE HERE ***"
@@ -69,34 +70,34 @@ def der_dot_dw(x, weights):
 def stochasticGradientDescentUpdate(datum, label, weights, alpha, der_loss_dw):
     """
     Question 2
-    
+
     Implement the weight update equation for general stochastic gradient descent,
-    given a single data point, datum, and its label and a function for the derivative 
+    given a single data point, datum, and its label and a function for the derivative
     of the loss function with respect to the weights.
-    Returns the updated weights. Return a new array updatedWeights. Do not modify the 
+    Returns the updated weights. Return a new array updatedWeights. Do not modify the
     input weights.
-    
+
     datum: input data point
     label: true label for data point
     weights: current weight array
     alpha: learning rate (gradient descent step size)
-    
+
     der_loss_dw: Function for the derivative of the loss function with respect to the
-    weights. Function signature: der_loss_dw(datam, label, weights), returns an array 
+    weights. Function signature: der_loss_dw(datam, label, weights), returns an array
     of the derivative of the loss function with respect to each self.weights term
     [der_loss_dw1, der_loss_dw2, ...]
     """
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
-    
+
     return updatedWeights
 
 def sigmoid(x):
     """
     Question 3
-    
+
     Return the output of the sigmoid function with scalar input x.
-    
+
     x: float input to function.
 
     Note that this is just the sigmoid function and there are no dot
@@ -108,14 +109,14 @@ def sigmoid(x):
 def der_sigmoid_dx(x):
     """
     Question 3
-    
+
     Derivative of the sigmoid function with respect to input x.
     Return the derivative evalutated at the input value x.
-    
+
     x: float input to function
-    
+
     Hint: Find (look-up) a form of the derivative that can take
-    advantage of the sigmoid function you already implemented.  
+    advantage of the sigmoid function you already implemented.
     """
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
@@ -123,17 +124,17 @@ def der_sigmoid_dx(x):
 def softmax(x):
     """
     Question 4
-    
+
     Softmax function that takes and array of N inputs and returns an array
     N outputs.
-    
+
     x: numpy ndarray with N entries
     Returns: ndArray with N entries
-    
-    Hint: Please take advantage of the numpy.exp function that takes an numpy 
-    array with N inputs and applies the natural exponential function to each 
+
+    Hint: Please take advantage of the numpy.exp function that takes an numpy
+    array with N inputs and applies the natural exponential function to each
     of them, returning an numpy array with the corresponding N output values.
-    
+
     Note that this is just the sigmoid function and there are no dot
     products with weights involved.
     """
@@ -215,18 +216,18 @@ class LinearRegression:
     def trainAnalytical(self, trainingData_x, trainingData_y):
         """
         Question 1
-        
+
         Return the analytical solutions for the weights that minimize
-        the quadratic loss between the input trainingData_x and 
-        trainingData_y labels. 
-        
+        the quadratic loss between the input trainingData_x and
+        trainingData_y labels.
+
         trainingData_x is a two dimensional (Nx2) array, where each row is a training point [x, 1].
         trainingData_y is a one dimensional (Nx1) array containing the scalar output
         label y for each training point
         """
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        print trainingData_x
 
         self.weights = weights
 
@@ -236,28 +237,28 @@ class LinearRegression:
         if showPlot:
             # Initialize list to store loss per iteration for plotting later
             trainingLossPerIteration = []
-            
+
             if showPacmanPlot:
                 pacmanDisplay = pacmanPlot.PacmanPlotRegression();
                 pacmanDisplay.plot(trainingData, regressionData)
                 graphicsUtils.sleep(0.1)
-            
+
         # Initializes weights to zero
         numDimensions = trainingData[0].size
         self.weights = np.zeros(numDimensions)
-        
+
         # Stochastic gradient descent
         for i in xrange(numIterations):
             if i+1 % 10 == 0:
                 print "Iteration " + str(i+1) + " of "+ str(numIterations)
-                
+
             for (datum, label) in zip(trainingData, regressionData):
                 self.weights = stochasticGradientDescentUpdate(datum, label, self.weights, self.alpha, self.der_loss_dw)
 
             if showPlot:
                 trainingLoss = self.regressionLoss(trainingData, regressionData)
                 trainingLossPerIteration.append(trainingLoss)
-                
+
                 if showPacmanPlot:
                     pacmanDisplay.setWeights(self.weights)
                     graphicsUtils.sleep(0.05)
@@ -279,19 +280,20 @@ class LinearRegression:
             regressionResults[i] = y
 
         return regressionResults
-    
+
     def hypothesis(self, x):
         """
         Question 1
-        
+
         Implement the linear regression hypothesis function. Given input array x, predict
         the scalar output value y, using the current value of self.weights.
-        
+
         x is an array of the same length as self.weights (both include the bias term)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
-        
+        dot_prod = np.dot(x, self.weights)
+        return dot_prod.tolist()
+
     def regressionLoss(self, x_data, y_data):
         """
         Average loss across many data points
@@ -301,21 +303,21 @@ class LinearRegression:
         for (x, y) in zip(x_data, y_data):
             totalLoss += self.loss(x, y)
         return totalLoss/N
-    
+
     def loss(self, x, y_true):
         """
         Question 1
-        
+
         Quadratic loss comparing y_true to the hypothesis for a single data point x
         Returns a single float value for the loss
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
-        
+        return quadLoss(self.hypothesis(x), y_true)
+
     def der_loss_dw(self, x, y_true, weights):
         """
         Question 2
-        
+
         Derivative of self.loss function with respect to self.weights, given a single data point x and
         label y_true.
         Returns an array of the derivative of the loss function with respect to each self.weights term
@@ -340,10 +342,10 @@ class BinaryLinearClassifier:
         Stochastic gradient descent to learn self.weights
         """
         numDimensions = trainingData[0].size
-        
+
         # Initializes weights to zero
         self.weights = np.zeros(numDimensions)
-        
+
         if showPlot:
             # Initialize list to store loss per iteration for plotting later
             trainingLossPerIteration = []
@@ -357,7 +359,7 @@ class BinaryLinearClassifier:
                 if datum[-1] != 1:
                     plotDims += 1
                     break
-                 
+
             if showPacmanPlot and plotDims <=2:
                 if plotDims == 2:
                     pacmanDisplay = pacmanPlot.PacmanPlotClassification2D();
@@ -367,10 +369,10 @@ class BinaryLinearClassifier:
                     pacmanDisplay.plot(trainingData[:,0], trainingLabels)
 
                 graphicsUtils.sleep(0.1)
-            
+
         # Stochastic gradient descent
         for itr in xrange(self.max_iterations):
-                
+
             for (datum, label) in zip(trainingData, trainingLabels):
                 self.weights = stochasticGradientDescentUpdate(datum, label, self.weights, self.alpha, self.der_loss_dw)
 
@@ -381,7 +383,7 @@ class BinaryLinearClassifier:
 
                 trainingLoss = self.classificationLoss(trainingData, trainingLabels)
                 trainingLossPerIteration.append(trainingLoss)
-                
+
                 if plotDims <= 2:
                     if showPacmanPlot:
                         pacmanDisplay.setWeights(self.weights)
@@ -411,15 +413,15 @@ class BinaryLinearClassifier:
     def hypothesis(self, x):
         """
         Question 3
-        
+
         Implement the logistic regresssion hypothesis function (dot product
         of input and weights passed to a sigmoid function).
-        In other words, given input array x and your current self.weights, return the 
+        In other words, given input array x and your current self.weights, return the
         probability that x belongs to class 1 (rather than class 0).
-        
+
         x: is an array of the same length as self.weights
         Returns a scalar between 0.0 and 1.0
-        Note: No need to worry about a bias term. If one exists, it 
+        Note: No need to worry about a bias term. If one exists, it
         has already been included in both x and self.weights.
         """
         "*** YOUR CODE HERE ***"
@@ -434,11 +436,11 @@ class BinaryLinearClassifier:
         for (x, y) in zip(x_data, y_data):
             totalLoss += self.loss(x, y)
         return totalLoss/N
-    
+
     def loss(self, x, y_true):
         """
         Question 3
-        
+
         Quadratic loss comparing label y_true to the hypothesis for a single data point x
         Returns a single float value for the loss
         """
@@ -448,16 +450,16 @@ class BinaryLinearClassifier:
     def der_loss_dw(self, x, y_true, weights):
         """
         Question 3
-        
+
         Derivative of self.loss function with respect to the input weights, given a single data point x and
         label y_true.
         Returns an array of the derivative of the loss function with respect to each input weights term
         [der_loss_dw1, der_loss_dw2, ...]
-        
+
         Hint: There are three functions involved in the complete loss function (quadLoss, sigmoid, dot product).
         You have already implemented the derivatives for these three functions with respect to their inputs.
         You should be able to use the chain rule and these derivative functions.
-        
+
         Another hint: To implement the hint above, you may need to first compute the input to each of the
         three functions involved in the complete loss function. For example, if you wanted to use der_sigmoid_dx,
         what value would you need to pass as input to that function?
@@ -483,18 +485,18 @@ class MulticlassLinearClassifier:
         Stochastic gradient descent to learn self.weights
         """
         numDimensions = trainingData[0].size
-        
+
         if showPlot:
             # Initialize list to store loss per iteration for plotting later
             trainingLossPerIteration = []
-                        
+
         self.weights = []
         for i in xrange(len(self.legalLabels)):
             self.weights.append(np.zeros(len(trainingData[0])))
-        
+
         # Stochastic gradient descent
         for itr in xrange(self.max_iterations):
-                
+
             for (datum, label) in zip(trainingData, trainingLabels):
                 # We have a list of arrays of weights here, instead of a matrix,
                 # so we end up looping over labels
@@ -509,7 +511,7 @@ class MulticlassLinearClassifier:
 
                 trainingLoss = self.classificationLoss(trainingData, trainingLabels)
                 trainingLossPerIteration.append(trainingLoss)
-                
+
                 plotUtil.plotCurve(range(len(trainingLossPerIteration)), trainingLossPerIteration, 2, "Training Loss")
 
 
@@ -529,19 +531,19 @@ class MulticlassLinearClassifier:
     def hypothesis(self, x):
         """
         Question 4
-        
+
         Implement the softmax regresssion hypothesis function.
-        Specifically, for each possible label, compute the dot product of the data and weights for 
+        Specifically, for each possible label, compute the dot product of the data and weights for
         that label. Then we pass the output of each of those dot products into the softmax function.
         The function will return the output of that softmax function call, which is an array of
         values between 0.0 and 1.0 for each possible label.
-        
-        For this multiclass classification, self.weights is actually a list, where self.weights[i] 
+
+        For this multiclass classification, self.weights is actually a list, where self.weights[i]
         is the array of weights for the i-th possible label.
-        
+
         x: is an array of the same length as each of the self.weights[i]
         Returns an array of values between 0.0 and 1.0; one value for each posible label
-        Note: No need to worry about a bias term. If one exists, it 
+        Note: No need to worry about a bias term. If one exists, it
         has already been included in both x and self.weights[i].
         """
         numClasses = len(self.legalLabels)
@@ -558,7 +560,7 @@ class MulticlassLinearClassifier:
         for (x, y) in zip(x_data, y_data):
             totalLoss += self.loss(x, y)
         return totalLoss/N
-    
+
     def loss(self, x, y_true):
         """
         Cross entropy loss comparing label y_true to the hypothesis for a single data point x
@@ -633,4 +635,3 @@ class OneVsRestLinearClassifier:
             bestLabel = self.legalLabels[bestLabelIndex]
             predicted_labels.append(bestLabel)
         return predicted_labels
-
