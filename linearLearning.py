@@ -65,7 +65,7 @@ def der_dot_dw(x, weights):
     Hint: You may not need all of the input arguments.
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    print x
 
 def stochasticGradientDescentUpdate(datum, label, weights, alpha, der_loss_dw):
     """
@@ -227,7 +227,12 @@ class LinearRegression:
         """
 
         "*** YOUR CODE HERE ***"
-        print trainingData_x
+        x = np.array(trainingData_x)
+        y = np.array(trainingData_y)
+        ans = np.linalg.inv(np.dot(x.T, x))
+        ans = np.dot(ans, x.T)
+        ans = np.dot(ans, y)
+        weights = ans.tolist()
 
         self.weights = weights
 
