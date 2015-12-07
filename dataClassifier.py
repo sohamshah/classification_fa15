@@ -77,6 +77,67 @@ def enhancedFeatureExtractorDigit(datum):
     ## DESCRIBE YOUR ENHANCED FEATURES HERE...
     ##
     """
+    features =  basicFeatureExtractorDigit(datum)
+
+    def getNeighbors(x, y):
+      neighbors = []
+      top_left_x = x - 1
+      top_left_y = y - 1
+
+      currX, currY = top_left_x, top_left_y
+
+      for i in range(9):
+
+        if currX > top_left_x + 2:
+            currX = top_left_x
+            currY += 1
+
+        if not (currX == x and currY == y):
+            if currX >= 0 and currX < DIGIT_DATUM_WIDTH and currY >= 0 and currY < DIGIT_DATUM_HEIGHT:
+                neighbors.append((currX, currY))
+        currX += 1
+      return neighbors
+
+    #a search
+    def holes(points):
+      holes = []
+      seen = set()
+
+      while len(points) != 0:
+        reigon_start = points.pop()
+        frontier = [reigon_start]
+        reigon = set()
+
+        while len(frontier) != 0:
+          curr = frontier.pop()
+          x, y = curr
+          if curr in points:
+            points.remove(curr)
+          reigon.add(curr)
+          seen.add(curr)
+          neighbors = getNeighbors(x, y)
+          for neighborPixel in neighbors:
+            x, y = neighborPixel
+            #white reigon
+            if not datum.getPixel(x, y):
+              if neighborPixel not in frontier and neighborPixel not in seen:
+                frontier.append(neighborPixel)
+        holes.append(reigon)
+      return holes
+
+    potential_holes = set() #points to initialize search
+    for x in range(DIGIT_DATUM_WIDTH):
+      for y in range(DIGIT_DATUM_HEIGHT):
+        if features[DIGIT_DATUM_HEIGHT*x+y] != 1:
+          potential_holes.add((x,y))
+
+    numHoles = len(holes(potential_holes))
+
+    numToBinaryFeature = {1: [1, 0, 0, 0], 2: [0, 1, 0, 0], 3: [0, 0, 1, 0], 4: [0, 0, 0, 1]}
+
+    features = np.append(features, numToBinaryFeature[numHoles])
+    return features
+
 
 def basicFeatureExtractorPacman(state):
     """

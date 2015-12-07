@@ -105,8 +105,7 @@ def sigmoid(x):
     products with weights involved.
     """
     "*** YOUR CODE HERE ***"
-    exp = np.exp(-x)
-    return 1 / (1+exp)
+    return 1 / (1+np.exp(-x))
 
 def der_sigmoid_dx(x):
     """
@@ -141,7 +140,8 @@ def softmax(x):
     products with weights involved.
     """
     "*** YOUR CODE HERE ***"
-    return np.exp(x) / np.exp(x).sum()
+    exp = np.exp(x)
+    return exp / exp.sum()
 
 def der_softmax_dx(x, i, j):
     """
@@ -296,7 +296,7 @@ class LinearRegression:
         x is an array of the same length as self.weights (both include the bias term)
         """
         "*** YOUR CODE HERE ***"
-        dot_prod = np.dot(x, self.weights)
+        dot_prod = np.dot(self.weights, x)
         return dot_prod
 
     def regressionLoss(self, x_data, y_data):
@@ -317,7 +317,7 @@ class LinearRegression:
         Returns a single float value for the loss
         """
         "*** YOUR CODE HERE ***"
-        return quadLoss(self.hypothesis(x), y_true)
+        return quadLoss(y_true, self.hypothesis(x))
 
     def der_loss_dw(self, x, y_true, weights):
         """
@@ -471,14 +471,15 @@ class BinaryLinearClassifier:
         what value would you need to pass as input to that function?
         """
         "*** YOUR CODE HERE ***"
-        dot_x_w = np.dot(x, weights)
-        sig_x_w = sigmoid(dot_x_w)
+        dotTop = np.dot(x, weights)
+        sigDotTop = sigmoid(dotTop)
+        losss = der_quadLoss_dx(sigDotTop, y_true)
 
-        der_dot = der_dot_dw(x, weights)
-        der_sig = der_sigmoid_dx(dot_x_w)
-        der_loss = der_quadLoss_dx(sig_x_w, y_true)
+        derDot = der_dot_dw(x, weights)
+        derSig = der_sigmoid_dx(dotTop)
+        losss = der_quadLoss_dx(sigDotTop, y_true)
 
-        return der_loss*der_sig*der_dot
+        return losss*derSig*derDot
 
 class MulticlassLinearClassifier:
     """
@@ -562,7 +563,8 @@ class MulticlassLinearClassifier:
         numClasses = len(self.legalLabels)
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        dots = [np.dot(weight, x) for weight in self.weights]
+        return softmax(dots)
 
     def classificationLoss(self, x_data, y_data):
         """
